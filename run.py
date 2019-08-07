@@ -1,4 +1,4 @@
-from callbacks import Callbacks
+from callbacks import Callbacks, on
 
 import sys
 
@@ -9,8 +9,7 @@ if __name__ == '__main__':
 		elif '++' in sys.argv:
 			Callbacks.on_new_db()
 
-		if sys.argv[1].lower() == 'add':
-			Callbacks.on_add()
+		on('add').do(Callbacks.on_add)
 			
 	except Exception as e:
 		print(e)

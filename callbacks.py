@@ -1,6 +1,16 @@
 from database import Database
-
 import sys
+
+class Event:
+	def __init__(self, name):
+		self.name = name
+
+	def do(self, callback):
+		if sys.argv[1].lower() == self.name:
+			callback()
+
+def on(name):
+	return Event(name)
 
 class Callbacks:
 	def on_existing_db():
