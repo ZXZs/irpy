@@ -22,12 +22,17 @@ class Database:
 		self.connection = None
 		self.cursor = None
 
-	def safe_execute(expression)
-
 if __name__ == '__main__':
-	db = Database('db.db')
+	if '--' in sys.argv: 
+		db = Database(sys.argv[sys.argv.index('--') + 1])
+	elif '++' in sys.argv:
+		db = Database(sys.argv[sys.argv.index('++') + 1])
+		db.connect()
+		db.execute("CREATE TABLE `words` ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `word1` TEXT NOT NULL, `word2` TEXT NOT NULL, `lvl` INTEGER NOT NULL )")
+		db.commit()
+		db.disconnect()
 
-	if sys.argv[1] == 'add':
+	if sys.argv[1].lower() == 'add':
 		try:
 			w1 = sys.argv[2].lower()
 			w2 = sys.argv[3].lower()
