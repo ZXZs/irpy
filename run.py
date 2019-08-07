@@ -1,13 +1,11 @@
-from callbacks import Callbacks, on
+from callbacks import Callbacks, on, if_arg_is
 
 import sys
 
 if __name__ == '__main__':
 	try:
-		if '--' in sys.argv: 
-			Callbacks.on_existing_db()
-		elif '++' in sys.argv:
-			Callbacks.on_new_db()
+		if_arg_is('--').do(Callbacks.on_existing_db)
+		if_arg_is('++').do(Callbacks.on_new_db)
 
 		on('add').do(Callbacks.on_add)
 			
