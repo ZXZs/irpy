@@ -1,4 +1,5 @@
 from database import Database
+from datetime import datetime
 import sys
 
 class Event:
@@ -28,7 +29,7 @@ class Callbacks:
 	def on_new_db():
 		global db
 		db = Database(sys.argv[sys.argv.index('++') + 1])
-		db.safe_execute("CREATE TABLE `words` ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `word1` TEXT NOT NULL, `word2` TEXT NOT NULL, `lvl` INTEGER NOT NULL )")
+		db.safe_execute("CREATE TABLE `words` ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `word1` TEXT NOT NULL, `word2` TEXT NOT NULL, `lvl` INTEGER NOT NULL, `timestamp` TEXT NOT NULL )")
 
 	def on_add():
 		global db
@@ -37,8 +38,8 @@ class Callbacks:
 		w2 = sys.argv[3].lower()
 
 		db.safe_execute_many([
-			f"INSERT INTO words (word1, word2, lvl) VALUES (\"{w1}\", \"{w2}\", 1);",
-			f"INSERT INTO words (word1, word2, lvl) VALUES (\"{w2}\", \"{w1}\", 1);"
+			f"INSERT INTO words (word1, word2, lvl, timestamp) VALUES (\"{w1}\", \"{w2}\", 1, \"{datetime.now().__str__()}\");",
+			f"INSERT INTO words (word1, word2, lvl, timestamp) VALUES (\"{w2}\", \"{w1}\", 1, \"{datetime.now().__str__()}\");"
 		])
 
 		print("OK")
