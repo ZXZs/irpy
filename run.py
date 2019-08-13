@@ -1,11 +1,14 @@
 from callbacks import Callbacks, on, if_arg_is
+from app import App
 
 if __name__ == '__main__':
 	try:
-		if_arg_is('--').do(Callbacks.on_existing_db)
-		if_arg_is('++').do(Callbacks.on_new_db)
+		app = App()
 
-		on('add').do(Callbacks.on_add)
+		if_arg_is('--').do(lambda: Callbacks.on_existing_db(app))
+		if_arg_is('++').do(lambda: Callbacks.on_new_db(app))
+
+		on('add').do(lambda: Callbacks.on_add(app))
 			
 	except Exception as e:
 		print(e)
