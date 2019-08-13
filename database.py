@@ -11,7 +11,7 @@ class Database:
 		self.cursor = self.connection.cursor()
 
 	def execute(self, expression):
-		self.cursor.execute(expression)
+		return self.cursor.execute(expression)
 
 	def commit(self):
 		self.connection.commit()

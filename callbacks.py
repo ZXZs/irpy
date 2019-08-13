@@ -1,5 +1,6 @@
 from database import Database
 from dt import DateTime
+from datetime import timedelta
 import sys
 
 class Event:
@@ -39,3 +40,29 @@ class Callbacks:
 		])
 
 		print("OK")
+
+	def on_repeat(app):
+		k = 10
+
+		app.db.connect()
+
+		for row in app.db.execute("SELECT * FROM words"):
+			current   = DateTime.now()
+			timestamp = DateTime.as_object(row[4])
+			interval  = timedelta(seconds = k * row[3])
+
+			if current - timestamp >= interval:
+				print(f"Translate this word: {row[1]}")
+				ok = input("Answer: ").lower()
+				if row[2] == ok:
+					print("SUCCESS")
+					app.db.execute(f"UPDATE words SET lvl = {row[3] + 1}, timestamp = \"{DateTime.now().__str__()}\" WHERE id = {row[0]}")
+				else:
+					print("FAIL")
+					app.db.execute(f"UPDATE words SET lvl = 1, timestamp = \"{DateTime.now().__str__()}\" WHERE id = {row[0]}")
+				break
+			else:
+				continue
+		
+		app.db.commit()
+		app.db.disconnect()

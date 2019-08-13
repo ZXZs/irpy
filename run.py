@@ -9,6 +9,7 @@ if __name__ == '__main__':
 		if_arg_is('++').do(lambda: Callbacks.on_new_db(app))
 
 		on('add').do(lambda: Callbacks.on_add(app))
+		on('repeat').do(lambda: Callbacks.on_repeat(app))
 			
 	except Exception as e:
 		print(e)
