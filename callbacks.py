@@ -1,5 +1,5 @@
 from database import Database
-from datetime import datetime
+from dt import DateTime
 import sys
 
 class Event:
@@ -38,8 +38,8 @@ class Callbacks:
 		w2 = sys.argv[3].lower()
 
 		db.safe_execute_many([
-			f"INSERT INTO words (word1, word2, lvl, timestamp) VALUES (\"{w1}\", \"{w2}\", 1, \"{datetime.now().__str__()}\");",
-			f"INSERT INTO words (word1, word2, lvl, timestamp) VALUES (\"{w2}\", \"{w1}\", 1, \"{datetime.now().__str__()}\");"
+			f"INSERT INTO words (word1, word2, lvl, timestamp) VALUES (\"{w1}\", \"{w2}\", 1, \"{DateTime.now().__str__()}\");",
+			f"INSERT INTO words (word1, word2, lvl, timestamp) VALUES (\"{w2}\", \"{w1}\", 1, \"{DateTime.now().__str__()}\");"
 		])
 
 		print("OK")
