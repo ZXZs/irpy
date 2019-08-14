@@ -42,14 +42,12 @@ class Callbacks:
 		print("OK")
 
 	def on_repeat(app):
-		k = 10
-
 		app.db.connect()
 
 		for row in app.db.execute("SELECT * FROM words"):
 			current   = DateTime.now()
 			timestamp = DateTime.as_object(row[4])
-			interval  = timedelta(seconds = k * row[3])
+			interval  = timedelta(days = row[3])
 
 			if current - timestamp >= interval:
 				print(f"Translate this word: {row[1]}")
