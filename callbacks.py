@@ -2,6 +2,7 @@ from database import Database
 from dt import DateTime
 from datetime import timedelta
 import sys
+from random import shuffle
 
 class Event:
 	def __init__(self, name, arg):
@@ -44,23 +45,30 @@ class Callbacks:
 	def on_repeat(app):
 		app.db.connect()
 
+		current = DateTime.now()
+
+		words = []
+
 		for row in app.db.execute("SELECT * FROM words"):
-			current   = DateTime.now()
 			timestamp = DateTime.as_object(row[4])
 			interval  = timedelta(days = row[3])
 
 			if current - timestamp >= interval:
-				print(f"Translate this word: {row[1]}")
-				ok = input("Answer: ").lower()
-				if row[2] == ok:
-					print("SUCCESS")
-					app.db.execute(f"UPDATE words SET lvl = {row[3] + 1}, timestamp = \"{DateTime.now().__str__()}\" WHERE id = {row[0]}")
-				else:
-					print("FAIL")
-					app.db.execute(f"UPDATE words SET lvl = 1, timestamp = \"{DateTime.now().__str__()}\" WHERE id = {row[0]}")
-				break
-			else:
-				continue
+				words.append(row)
+
+		shuffle(words)
 		
+		for row in words:
+			print(f"Translate this word: {row[1]}")
+			ok = input("Answer: ").lower()
+			if row[2] == ok:
+				print("SUCCESS")
+				print("")
+				app.db.execute(f"UPDATE words SET lvl = {row[3] + 1}, timestamp = \"{DateTime.now().__str__()}\" WHERE id = {row[0]}")
+			else:
+				print("FAIL")
+				print("")
+				app.db.execute(f"UPDATE words SET lvl = 1, timestamp = \"{DateTime.now().__str__()}\" WHERE id = {row[0]}")
+
 		app.db.commit()
 		app.db.disconnect()
