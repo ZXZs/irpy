@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>IRPY</title>
+	<script>
+		function httpGet(theUrl) {
+		    var xmlHttp = new XMLHttpRequest();
+		    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+		    xmlHttp.send(null);
+		}
+	</script>
+</head>
+<body>
+	<b>Database: </b> <br>
+		<input type="text" id="db"> <br>
+		<input type="submit" id="db_submit" 
+		onclick="httpGet('http://' + window.location.host + '/db/' + document.getElementById('db').value)">
+	<br> <br>
+
+	<b>Words: </b> <br>
+		<input type="text" id="word1"> <br>
+		<input type="text" id="word2"> <br>
+		<input type="submit" id="words_submit"
+		onclick="httpGet('http://' + window.location.host + '/add/' 
+		+ document.getElementById('word1').value + '/'
+		+ document.getElementById('word2').value)">
+	<br>
+</body>
+</html>
