@@ -22,10 +22,12 @@
 	<b>Words: </b> <br>
 		<input type="text" id="word1"> <br>
 		<input type="text" id="word2"> <br>
+		<input type="text" id="theme"> <br>
 		<input type="submit" id="words_submit"
 		onclick="httpGet('http://' + window.location.host + '/add/' 
 		+ document.getElementById('word1').value + '/'
-		+ document.getElementById('word2').value)">
+		+ document.getElementById('word2').value + '/'
+		+ document.getElementById('theme').value)">
 	<br>
 </body>
 </html>

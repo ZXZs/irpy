@@ -22,22 +22,24 @@ def new_db(name):
 			`word1` TEXT NOT NULL, 
 			`word2` TEXT NOT NULL, 
 			`lvl` INTEGER NOT NULL, 
-			`timestamp` TEXT NOT NULL 
+			`timestamp` TEXT NOT NULL,
+			`theme` TEXT NOT NULL
 		)
 		""")
 
 	return "OK"
 
-@flask.route('/add/<word1>/<word2>')
-def add(word1, word2):
+@flask.route('/add/<word1>/<word2>/<theme>')
+def add(word1, word2, theme):
 	global db
 
 	word1 = word1.lower()
 	word2 = word2.lower()
+	theme = theme.lower()
 
 	db.safe_execute_many([
-		f"INSERT INTO words (word1, word2, lvl, timestamp) VALUES (\"{word1}\", \"{word2}\", 1, \"{DateTime.now().__str__()}\");",
-		f"INSERT INTO words (word1, word2, lvl, timestamp) VALUES (\"{word2}\", \"{word1}\", 1, \"{DateTime.now().__str__()}\");"
+		f"INSERT INTO words (word1, word2, lvl, timestamp, theme) VALUES (\"{word1}\", \"{word2}\", 1, \"{DateTime.now().__str__()}\", \"{theme}\");",
+		f"INSERT INTO words (word1, word2, lvl, timestamp, theme) VALUES (\"{word2}\", \"{word1}\", 1, \"{DateTime.now().__str__()}\", \"{theme}\");"
 	])
 
 	return "OK"
