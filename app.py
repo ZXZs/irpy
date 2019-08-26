@@ -1,14 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask
+from flask_cors import CORS
 from dt import DateTime	
 from database import Database
 
 flask = Flask(__name__)
+CORS(flask)
 
 db = None
-
-@flask.route('/')
-def index():
-	return render_template('index.html')
 
 @flask.route('/db/<name>')
 def new_db(name):
