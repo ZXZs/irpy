@@ -1,42 +1,31 @@
 <!DOCTYPE html>
-<html style="margin: 1rem;">
+<html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>IRPY</title>
-	<link rel="stylesheet" href="btstrp.css">
+	<link rel="stylesheet" href="materialize.css">
 </head>
 <body>
-	<h1>Database</h1>
+	<div class="container">
+		<h1>Database</h1>
 
-	<div class="form-group">
-		<label for="db" class="bmd-label-floating">Email address</label>
-		<input type="text" id="db" class="form-control"> <br>
-		<button class="btn btn-primary btn-raised" id="db_submit">Submit</button>
-		</div>
-
-	<h1>Words</h1>
-	
-	<div class="form-group">
-		<input type="text" id="word1" class="form-control"> <br>
-		<label for="word1" class="bmd-label-floating">Word 1</label>
+		<input type="text" id="db" class="validate" placeholder="example.db">
+		<button class="btn btn-large waves-effect waves-light" id="db_submit">Submit</button>
 	</div>
 
-	<div class="form-group">
-		<input type="text" id="word2" class="form-control"> <br>
-		<label for="word2" class="bmd-label-floating">Word 2</label>
-	</div>
-	
-	<div class="form-group">
-		<input type="text" id="theme" class="form-control"> <br>
-		<label for="theme" class="bmd-label-floating">Theme</label>
-		<button id="words_submit" class="btn btn-primary btn-raised">Submit</button>
+	<div class="container">
+		<h1>Words</h1>
+
+		<input type="text" id="word1" class="validate" placeholder="Word 1">
+		<input type="text" id="word2" class="validate" placeholder="Word 2">
+		<input type="text" id="theme" class="validate" placeholder="Theme">
+		<button id="words_submit" class="btn btn-large waves-effect waves-light">Submit</button>
 	</div>
 </body>
 
+<script src="materialize.js"></script>
 <script src="jquery.js"></script>
-<script src="popper.js"></script>
-<script src="btstrp.js"></script>
 <script src="index.js" ></script>
 </html>
