@@ -6,6 +6,7 @@ function get_new_word() {
 		success: function(text) {
 			window.shit = JSON.parse(text)
 			$('#wft').text(window.shit[1])
+			$('#theme_badge').text(window.shit[5])
 		},
 		error: function(error) {
 			M.toast({html: 'Fail!'})
