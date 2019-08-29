@@ -60,10 +60,10 @@ $(document).ready(function() {
 		if ($('#wft').text() == "") {
 			get_new_word()
 		} else if ($('#translate').val() == window.shit[2]) {
-			M.toast({html: 'Right!', classes: ''})
+			M.toast({html: 'Right!', classes: 'light-green-text text-accent-2'})
 			get_new_word()
 		} else {
-			M.toast({html: 'Wrong!'})
+			M.toast({html: 'Wrong!', classes: 'red-text text-accent-2'})
 			get_new_word()
 		}
 	})
