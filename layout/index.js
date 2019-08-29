@@ -60,7 +60,7 @@ $(document).ready(function() {
 		host  = $(location).attr('hostname') + ':5000'
 		if ($('#wft').text() == "") {
 			get_new_word()
-		} else if ($('#translate').val() == window.shit[2]) {
+		} else if ($('#translate').val().toLowerCase() == window.shit[2]) {
 			M.toast({html: 'Right!', classes: 'light-green-text text-accent-2'})
 			get_new_word()
 		} else {
