@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-from dt import DateTime	
+from dt import DateTime
+from datetime import timedelta
 from database import Database
 from json import dumps
 
@@ -46,9 +47,25 @@ def add(word1, word2, theme):
 @flask.route('/repeat')
 def repeat():
 	global db
+
+	current = DateTime.now()
+
 	db.connect()
-	for i in db.execute("SELECT * FROM words ORDER BY RANDOM() LIMIT 1"): result = i
+
+	while True:
+		for i in db.execute("SELECT * FROM words ORDER BY RANDOM() LIMIT 1"):
+			row = i
+		timestamp = DateTime.as_object(row[4])
+		interval  = timedelta(days = row[3])
+
+		if current - timestamp >= interval:
+			result = row
+			break
+		else:
+			continue
+
 	db.disconnect()
+
 	return dumps(list(result))
 
 @flask.route('/level_incr/<id>/<lvl>')

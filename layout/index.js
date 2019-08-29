@@ -13,7 +13,8 @@ $(document).ready(function() {
 			},
 			error: function(error) {
 				M.toast({html: 'Fail!'})
-			}
+			},
+			timeout: 3000
 		})
 	}
 
