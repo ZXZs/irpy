@@ -33,6 +33,7 @@ class Database:
 
 	def safe_execute(self, expression):
 		self.connect()
-		self.execute(expression)
+		result = self.execute(expression)
 		self.commit()
 		self.disconnect()
+		return result

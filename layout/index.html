@@ -6,11 +6,16 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>IRPY</title>
 	<link rel="stylesheet" href="materialize.css">
+
+	<style>
+		* { padding-bottom:2rem; }
+	</style>
 </head>
 <body>
 	<div class="container">
 		<h1>Database</h1>
 
+		<h5 id="dbn"></h5>
 		<input type="text" id="db" class="validate" placeholder="example.db">
 		<button class="btn btn-large waves-effect waves-light" id="db_submit">Submit</button>
 	</div>
@@ -22,6 +27,15 @@
 		<input type="text" id="word2" class="validate" placeholder="Word 2">
 		<input type="text" id="theme" class="validate" placeholder="Theme">
 		<button id="words_submit" class="btn btn-large waves-effect waves-light">Submit</button>
+	</div>
+
+	<div class="container">
+		<h1>Repeat</h1>
+
+		<h5 id="wft"></h5>
+		<input type="text" id="translate" class="validate" placeholder="Translate">
+
+		<button id="repeat_submit" class="btn btn-large waves-effect waves-light">Submit</button>
 	</div>
 </body>
 

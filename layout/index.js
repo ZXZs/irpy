@@ -1,3 +1,18 @@
+function get_new_word() {
+	$.ajax({
+		type: 'GET',
+		url: `http://${host}/repeat`,
+		async: true,
+		success: function(text) {
+			window.shit = JSON.parse(text)
+			$('#wft').text(window.shit[1])
+		},
+		error: function(error) {
+			M.toast({html: 'Fail!'})
+		}
+	})
+}
+
 $(document).ready(function() { 
 	$('#words_submit').click(function() {
 		word1 = $('#word1').val()
@@ -10,10 +25,13 @@ $(document).ready(function() {
 			url: `http://${host}/add/${word1}/${word2}/${theme}`,
 			async: true,
 			success: function(text) {
-				if (text == "OK") 
-					M.toast({html: 'Success!'})
-				else
-					M.toast({html: 'Fail!'})
+				$('#word1').val('')
+				$('#word2').val('')
+				$('#theme').val('')
+				M.toast({html: 'Success!'})
+			},
+			error: function(error) {
+				M.toast({html: 'Fail!'})
 			}
 		})
 	})
@@ -27,11 +45,26 @@ $(document).ready(function() {
 			url: `http://${host}/db/${db}`,
 			async: true,
 			success: function(text) {
-				if (text == "OK") 
-					M.toast({html: 'Success!'})
-				else
-					M.toast({html: 'Fail!'})
+				$('#dbn').text(db)
+				$('#db').val('')
+				M.toast({html: 'Success!'})
+			},
+			error: function(error) {
+				M.toast({html: 'Fail!'})
 			}
 		})
+	})
+
+	$('#repeat_submit').click(function() {
+		host  = $(location).attr('hostname') + ':5000'
+		if ($('#wft').text() == "") {
+			get_new_word()
+		} else if ($('#translate').val() == window.shit[2]) {
+			M.toast({html: 'Right!', classes: ''})
+			get_new_word()
+		} else {
+			M.toast({html: 'Wrong!'})
+			get_new_word()
+		}
 	})
 })

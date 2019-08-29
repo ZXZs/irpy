@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from dt import DateTime	
 from database import Database
+from json import dumps
 
 flask = Flask(__name__)
 CORS(flask)
@@ -44,4 +45,12 @@ def add(word1, word2, theme):
 
 @flask.route('/repeat')
 def repeat():
-	return "OK"
+	global db
+	db.connect()
+	for i in db.execute("SELECT * FROM words ORDER BY RANDOM() LIMIT 1"): result = i
+	db.disconnect()
+	return dumps(list(result))
+
+if __name__ == '__main__':
+    flask.debug = True
+    flask.run(host = '0.0.0.0', port=5000)
