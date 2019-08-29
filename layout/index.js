@@ -1,25 +1,26 @@
-function get_new_word() {
-	$.ajax({
-		type: 'GET',
-		url: `http://${host}/repeat`,
-		async: true,
-		success: function(text) {
-			window.shit = JSON.parse(text)
-			$('#wft').text(window.shit[1])
-			$('#theme_badge').text(window.shit[5])
-		},
-		error: function(error) {
-			M.toast({html: 'Fail!'})
-		}
-	})
-}
+$(document).ready(function() {
+	const host = $(location).attr('hostname') + ':5000'
 
-$(document).ready(function() { 
+	const get_new_word = function() {
+		$.ajax({
+			type: 'GET',
+			url: `http://${host}/repeat`,
+			async: true,
+			success: function(text) {
+				window.shit = JSON.parse(text)
+				$('#wft').text(window.shit[1])
+				$('#theme_badge').text(window.shit[5])
+			},
+			error: function(error) {
+				M.toast({html: 'Fail!'})
+			}
+		})
+	}
+
 	$('#words_submit').click(function() {
 		word1 = $('#word1').val()
 		word2 = $('#word2').val()
 		theme = $('#theme').val()
-		host  = $(location).attr('hostname') + ':5000'
 
 		$.ajax({
 			type: 'GET',
@@ -38,8 +39,7 @@ $(document).ready(function() {
 	})
 
 	$('#db_submit').click(function() {
-		db   = $('#db').val()
-		host = $(location).attr('hostname') + ':5000'
+		db = $('#db').val()
 
 		$.ajax({
 			type: 'GET',
@@ -57,7 +57,6 @@ $(document).ready(function() {
 	})
 
 	$('#repeat_submit').click(function() {
-		host  = $(location).attr('hostname') + ':5000'
 		if ($('#wft').text() == "") {
 			get_new_word()
 		} else if ($('#translate').val().toLowerCase() == window.shit[2]) {
