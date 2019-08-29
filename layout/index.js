@@ -17,6 +17,22 @@ $(document).ready(function() {
 		})
 	}
 
+	const level_incr = function() {
+		$.ajax({
+			type: 'GET',
+			url: `http://${host}/level_incr/${window.shit[0]}/${window.shit[3]}`,
+			async: false,
+		})
+	}
+
+	const level_drop = function() {
+		$.ajax({
+			type: 'GET',
+			url: `http://${host}/level_drop/${window.shit[0]}`,
+			async: false,
+		})
+	}
+
 	$('#words_submit').click(function() {
 		word1 = $('#word1').val()
 		word2 = $('#word2').val()
@@ -61,9 +77,11 @@ $(document).ready(function() {
 			get_new_word()
 		} else if ($('#translate').val().toLowerCase() == window.shit[2]) {
 			M.toast({html: 'Right!', classes: 'light-green-text text-accent-2'})
+			level_incr()
 			get_new_word()
 		} else {
 			M.toast({html: 'Wrong!', classes: 'red-text text-accent-2'})
+			level_drop()
 			get_new_word()
 		}
 	})
