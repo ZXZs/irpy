@@ -46,36 +46,40 @@ def add(word1, word2, theme):
 
 @flask.route('/repeat')
 def repeat():
-	global db
+	try:
+		global db
 
-	current = DateTime.now()
+		current = DateTime.now()
 
-	db.connect()
+		db.connect()
 
-	while True:
-		for i in db.execute("SELECT * FROM words ORDER BY RANDOM() LIMIT 1"):
-			row = i
-		timestamp = DateTime.as_object(row[4])
-		interval  = timedelta(days = row[3])
+		while True:
+			for i in db.execute("SELECT * FROM words ORDER BY RANDOM() LIMIT 1"):
+				row = i
+			timestamp = DateTime.as_object(row[4])
+			interval  = timedelta(days = row[3])
 
-		if current - timestamp >= interval:
-			result = row
-			break
-		else:
-			continue
+			if current - timestamp >= interval:
+				result = row
+				break
+			else:
+				continue
 
-	db.disconnect()
+		db.disconnect()
 
-	return dumps(list(result))
+		return dumps(list(result))
+	except Exception as e:
+		print(e)
+		return "ERROR"
 
 @flask.route('/level_incr/<id>/<lvl>')
 def level_incr(id, lvl):
-	db.safe_execute(f"UPDATE words SET lvl = {int(lvl) + 1}, timestamp = {DateTime.now().__str__()} WHERE id = {int(id)}")
+	db.safe_execute(f"UPDATE words SET lvl = {int(lvl) + 1}, timestamp = \"{DateTime.now().__str__()}\" WHERE id = {int(id)}")
 	return "OK"
 
 @flask.route('/level_drop/<id>')
 def level_drop(id):
-	db.safe_execute(f"UPDATE words SET lvl = 1, timestamp = {DateTime.now().__str__()} WHERE id = {int(id)}")
+	db.safe_execute(f"UPDATE words SET lvl = 1, timestamp = \"{DateTime.now().__str__()}\" WHERE id = {int(id)}")
 	return "OK"
 
 if __name__ == '__main__':
