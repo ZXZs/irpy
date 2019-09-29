@@ -76,14 +76,17 @@ $(document).ready(function() {
 	$('#repeat_submit').click(function() {
 		if ($('#wft').text() == "") {
 			get_new_word()
+			$('#translate').val('')
 		} else if ($('#translate').val().toLowerCase() == window.shit[2]) {
 			M.toast({html: 'Right!', classes: 'light-green-text text-accent-2'})
 			level_incr()
 			get_new_word()
+			$('#translate').val('')
 		} else {
 			M.toast({html: 'Wrong!', classes: 'red-text text-accent-2'})
 			level_drop()
 			get_new_word()
+			$('#translate').val('')
 		}
 	})
 })
